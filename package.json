@@ -9,13 +9,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.6.1",
     "chalk": "^2.4.1",
     "chroma-js": "^1.4.1",
     "d3": "^5.7.0",
     "d3-node": "^2.1.0",
+    "fs-extra": "^7.0.1",
     "gm": "^1.23.1",
     "jspdf": "^1.5.3",
     "moment": "^2.22.2",
-    "pngjs": "^3.3.3"
+    "pdfkit": "^0.8.3",
+    "pngjs": "^3.3.3",
+    "svg-to-pdfkit": "^0.1.7"
   }
 }

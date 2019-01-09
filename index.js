@@ -4,16 +4,18 @@ const chroma = require('chroma-js');
 const chalk = require('chalk');
 const moment = require('moment');
 const d3m = require('./d3.module.js')
+const svg2pdf = require('./svg2pdf');
+
+let fileName = 'balle';
 
 let pageProps = {
-  width: 210,
-  height: 297,
+  width: 297,
+  height: 420,
   mmSquare: 8,
-  // spacing: 2.6,
   spacing: 1.4,
   minPadding: 15,
   gPerStone: 0.8,
-  flip: false
+  flip: true
 }
 
 // *****************************
@@ -97,9 +99,7 @@ const logIt = ({ size, pixArr, colors, props }) => {
 
 
   console.log(JSON.stringify(size, null, 2))
-
   console.log(JSON.stringify(colors, null, 2))
-
   console.log(JSON.stringify(props, null, 2))
 
 }
@@ -130,7 +130,8 @@ const getProps = ({pageProps, size}) => {
     sheetCol,
     sheetRow,
     totalSheets,
-    squaresPerSheet
+    squaresPerSheet,
+    fileName
   }
 
 }
@@ -170,6 +171,19 @@ const runIt = async (pathToImage) => {
   // ------------
   try {
     await d3m({props, pixArr, colors, size})
+  } catch (err) {
+    console.log(err)
+  }
+
+  // ----------
+  // Create PDF
+  // ----------
+  try {
+    let fileArr = [];
+    for (let i = 0; i<props.totalSheets; i++) {
+      fileArr.push(`./SVG/${fileName}-${i}.svg`)
+    }
+    await svg2pdf({size, fileArr, props})
   } catch (err) {
     console.log(err)
   }
